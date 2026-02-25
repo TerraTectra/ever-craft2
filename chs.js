@@ -737,7 +737,7 @@ var cnItems = {
     "Multiplies T8 gem production (all realms)": "提高 T8 宝石的产量（所有领域）",
     "T8 Gem Production": "T8 宝石生产",
     "Total pixies": "总计小精灵",
-    "": "",
+    "??? — Craft 410k Anima Cores (": "??? — 制作 410k 灵魂核心 (",
     "": "",
     "": "",
     "": "",
