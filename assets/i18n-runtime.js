@@ -2,6 +2,7 @@
   "use strict";
 
   const LANGUAGE_STORAGE_KEY = "evercraft-language";
+  const LANGUAGE_USER_SET_KEY = "evercraft-language-user-set";
   const DEBUG_STORAGE_KEY = "evercraft-i18n-debug-missing";
   const SUPPORTED_LANGUAGES = ["en", "ru"];
 
@@ -30,6 +31,14 @@
     }
   }
 
+  function safeRemoveStorage(key) {
+    try {
+      window.localStorage.removeItem(key);
+    } catch (_) {
+      /* no-op */
+    }
+  }
+
   function normalizeLang(input) {
     if (!input || typeof input !== "string") return "en";
     const short = input.toLowerCase().slice(0, 2);
@@ -37,8 +46,11 @@
   }
 
   function detectInitialLanguage() {
-    const stored = normalizeLang(safeGetStorage(LANGUAGE_STORAGE_KEY));
-    if (stored !== "en" || safeGetStorage(LANGUAGE_STORAGE_KEY) === "en") {
+    const userSet = safeGetStorage(LANGUAGE_USER_SET_KEY) === "1";
+    const rawStored = safeGetStorage(LANGUAGE_STORAGE_KEY);
+    const stored = normalizeLang(rawStored);
+
+    if (userSet && rawStored) {
       return stored;
     }
 
@@ -272,7 +284,10 @@
   function setLanguage(lang, persistChoice) {
     state.lang = normalizeLang(lang);
     document.documentElement.lang = state.lang;
-    if (persistChoice) safeSetStorage(LANGUAGE_STORAGE_KEY, state.lang);
+    if (persistChoice) {
+      safeSetStorage(LANGUAGE_STORAGE_KEY, state.lang);
+      safeSetStorage(LANGUAGE_USER_SET_KEY, "1");
+    }
     window.dispatchEvent(new CustomEvent("ec:i18n-language-changed", { detail: { lang: state.lang } }));
   }
 
@@ -415,6 +430,10 @@
       return state.lang;
     },
     setLanguage: setLanguage,
+    clearLanguagePreference: function () {
+      safeRemoveStorage(LANGUAGE_STORAGE_KEY);
+      safeRemoveStorage(LANGUAGE_USER_SET_KEY);
+    },
     setDebugMissing: setDebugMissing,
     getDebugMissing: function () {
       return state.debugMissing;
