@@ -824,7 +824,7 @@ var cnItems = {
     "Trial of Alchemy": "炼金试炼",
     "• Ancient Valor wonder": "• 远古荣耀奇迹",
     "• x10 Arcane Dwelling population": "• x10奥术居住人口",
-    "• x20 Global Output (replaces x5)": "• x20 全局产出（取代 x5）",
+    "• x50 Global Output (replaces x5)": "• x50 全局产出（取代 x5）",
     "Altar bonuses do not reset on tier up until T4. T4+ resets altar bonuses. No sacrifice cap. Sacrifices 13.8 items at a time.": "圣坛奖励在升级时不会重置，直到第 4 层才会重置。第 4 层及以上时圣坛奖励会重新设定。没有牺牲上限。每次可牺牲 13.8 件物品。",
     "Breeding Artifact": "繁殖神器",
     "Increases knight output (x1.4 per level)": "提高骑士产出（每级提升 1.4x）",
